@@ -1,36 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.com.example.android.locationreminder">
+          package="app.com.example.android.locationreminder">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WAKE_LOCK"/>
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+	<uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+	<uses-permission android:name="android.permission.INTERNET"/>
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+	<application
+		android:allowBackup="true"
+		android:icon="@mipmap/ic_launcher"
+		android:label="@string/app_name"
+		android:supportsRtl="true"
+		android:theme="@style/AppTheme">
+		<activity
+			android:name=".MainActivity"
+			android:label="@string/app_name"
+			android:theme="@style/AppTheme.NoActionBar">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".DisplayNote" />
-        <activity android:name=".DisplayLocation" />
-        <activity android:name=".DisplayAlarm" />
 
-        <service
-            android:name=".ListenerService"
-            android:enabled="true"
-            android:exported="true">
-        </service>
-    </application>
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+		</activity>
+		<activity android:name=".DisplayNote">
+		</activity>
+		<activity android:name=".DisplayLocation">
+		</activity>
+		<activity android:name=".DisplayAlarm">
+		</activity>
+
+		<receiver android:name=".AlarmReceiver"></receiver>
+
+		<receiver
+			android:name=".BootReceiver"
+			android:enabled="false">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED"></action>
+			</intent-filter>
+		</receiver>
+
+		<service android:name=".SchedulingService"/>
+		<service
+			android:name=".ListenerService"
+			android:enabled="true"
+			android:exported="true">
+		</service>
+	</application>
+
 
 </manifest>
